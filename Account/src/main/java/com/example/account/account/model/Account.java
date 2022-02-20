@@ -21,7 +21,11 @@ public class Account
     private int accountId;
     private int customerId;
     private LocalDate creationDate;
-    private AccType accType;//acctype
-   // private String accountType;
+   //@Enumerated(EnumType.STRING)
+  // private AccType accType;
+    private String accountType;
+    private int balance;
+    private String status;
+
 
 }

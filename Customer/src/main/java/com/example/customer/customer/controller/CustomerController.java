@@ -1,11 +1,10 @@
 package com.example.customer.customer.controller;
 
-import com.example.customer.customer.CustomerApplication;
 import com.example.customer.customer.feign.Feign;
-import com.example.customer.customer.model.AccType;
 import com.example.customer.customer.model.Account;
 import com.example.customer.customer.model.Customer;
 import com.example.customer.customer.model.CustomerResponse;
+import com.example.customer.customer.model.UpdateCustomer;
 import com.example.customer.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,4 +59,17 @@ public class CustomerController
         customerService.type(accType);
 
     }**/
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Customer> accBalance(@PathVariable("id") Integer id, @RequestBody UpdateCustomer updateCustomer) {
+
+        return new ResponseEntity<>(customerService.updatecust(id, updateCustomer), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable("id") Integer id) {
+
+        return new ResponseEntity<>(customerService.deleteCustomer(id), HttpStatus.OK);
+    }
+
 }

@@ -3,23 +3,15 @@ package com.example.customer.customer.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Document(collection="customerinfo")
-public class Customer
+public class UpdateCustomer
 {
-    @Id
-    private String id;
-    private int customerId;
     @NotBlank(message = "customer name should not be blank")
     private String firstName;
     private String lastName;
@@ -27,8 +19,4 @@ public class Customer
     private Long contact;
     private String address;
     private String status;
-
-
-
-
 }

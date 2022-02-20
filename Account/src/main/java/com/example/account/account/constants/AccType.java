@@ -1,8 +1,9 @@
 package com.example.account.account.constants;
 
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-//@Enumerated
+//@Enumerated(EnumType.STRING)
 public enum AccType
 {
     CASH,

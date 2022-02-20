@@ -1,8 +1,9 @@
 package com.example.customer.customer.service;
 
-import com.example.customer.customer.model.AccType;
+import com.example.customer.customer.feign.Feign;
 import com.example.customer.customer.model.Account;
 import com.example.customer.customer.model.Customer;
+import com.example.customer.customer.model.UpdateCustomer;
 import com.example.customer.customer.repo.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -22,6 +23,9 @@ public class CustomerImpl implements CustomerService
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    Feign feign;
 
     @Override
     public List<Customer> getCustomer() {
@@ -50,7 +54,29 @@ public class CustomerImpl implements CustomerService
         return customerRepo.findByCustomerId(id);
     }
 
-   /** @Override
+    @Override
+    public Customer updatecust(Integer id, UpdateCustomer updateCustomer)
+    {
+        Customer customer1=customerRepo.findByCustomerId(id);
+        customer1.setFirstName(updateCustomer.getFirstName());
+        customer1.setLastName(updateCustomer.getLastName());
+        customer1.setContact(updateCustomer.getContact());
+        customer1.setAddress(updateCustomer.getAddress());
+        customer1.setStatus(updateCustomer.getStatus());
+        return  customerRepo.save(customer1);
+
+    }
+
+    @Override
+    public String deleteCustomer(Integer id)
+    {
+        Customer customer=customerRepo.findByCustomerId(id);
+        customer.setStatus(feign.deleteAccount(id));
+        customerRepo.save(customer);
+        return "customer is deleted:"+id;
+    }
+
+    /** @Override
     public void type(AccType accType)
     {
         HttpHeaders ht=new HttpHeaders();
@@ -60,4 +86,7 @@ public class CustomerImpl implements CustomerService
         HttpEntity<AccType> httpEntity = new HttpEntity<>(accType, ht);
         restTemplate.postForObject("http://accounts/acc/addcustomer", httpEntity, void.class);
     }**/
+
+
+
 }
